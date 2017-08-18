@@ -545,6 +545,11 @@ goalCB(GoalHandle gh)
   if (permutation_vector.empty())
   {
     ROS_ERROR_NAMED(name_, "Joints on incoming goal don't match the controller joints.");
+    ROS_ERROR_NAMED(name_, "Controller joints:");
+    for (std::vector<std::string>::iterator it = joint_names_.begin(); it != joint_names_.end(); ++it)
+    {
+      ROS_ERROR_STREAM_NAMED(name_, "\t" << *it);
+    }
     control_msgs::FollowJointTrajectoryResult result;
     result.error_code = control_msgs::FollowJointTrajectoryResult::INVALID_JOINTS;
     gh.setRejected(result);
